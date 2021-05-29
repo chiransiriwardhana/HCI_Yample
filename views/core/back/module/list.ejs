@@ -1,0 +1,157 @@
+<div class="">
+    <h3 class="submenu"><a href="/admin"></a>MODULE LIST</h3>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                                    
+                        <Th> <%= __('Name') %></th>
+                                    
+                        <th> <%= __('Category') %></th>
+
+                        <Th> <%= __('Description') %></th>
+                                    
+                        <Th> <%= __('State') %></th>
+
+                        <th><%= __('Configure') %></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% listModule.forEach(function(module){ %>
+                    <tr data-id="<%= module.id %>">
+
+                        <!--td><%= module.createdAt %></td-->
+                        <td><%= module.name %></td>
+                        <td><%= module.category %></td>
+
+
+                        <td>
+
+                            <% if (typeof module.description !== 'undefined') { %>
+                            <% module.description %>
+                            <%} %>
+
+                                                   </td>
+                        <% if (module.isActive) { %>
+                        <td>
+                            <button style="pointer-events: none;" class="btn btn-xs btn-success" button-action="status"> <%= __('Active') %></button>
+                        </td>
+                        <% }  else { %>
+                                 
+                        <td>
+                            <button style="pointer-events: none;" class="btn btn-xs btn-warning" button-action="status"> <%= __('Inactive') %>
+                            </button>
+                        </td>
+                        <% } %>
+
+                        </td>
+                        <!--td>
+
+
+                            <a href="/module/<%= module.id %>" class="btn btn-xs btn-default" button-action="edit">PREVIEW</a>
+
+                        </td-->
+                        <td>
+
+
+                            <a href="/admin/module/edit/<%= module.name %>" class="btn btn-xs btn-primary"
+                               button-action="edit">Configure</a>
+                        </td>
+
+                    </tr>
+
+                    <% } ); %>
+
+                    </tbody>
+                </table>
+
+                <div style="text-align: center;">
+                    <ul class="pagination">
+                        <button><a class="btn btn-sm"  href="#/admin/module">&laquo;</a></button>
+                        <button><a class="btn btn-sm" href="#/admin/module">&raquo;</a>
+
+
+                        <!--% if (page == 1 ) {%-->
+                        <!--li class="active"><a href="/admin/module?page=<%#= loop.index %>"><%#= loop.index %></a></li>
+
+
+                        <!--%} else { %-->
+
+
+                        <!--li><a href="/admin/module?page=<%#= loop.index %>"><%#= loop.index %></a></li-->
+
+                        <!--% } %-->
+
+                        <% if (typeof loop == 'object' ) { %>
+                        <a href="/admin/module?page=<%#= loop.index %>">&raquo;</a>
+                        <% } %>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[button-action="status"]').on('click', function () {
+            var module_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'PUT',
+                url: '/module/status/' + module_id,
+                success: function (data, status) {
+                    alert('Status changed succesfully.');
+                    window.location = '/admin/module';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+
+        // POST DELETE
+        $('[button-action="delete"]').on('click', function () {
+            if (!confirm('Do you really want to delete this?')) {
+                return;
+            }
+
+            var module_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/module/' + module_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/admin/module';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- STYLESHEETS -->
+<style>
+    .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<!-- SCRIPTS -->
+
+

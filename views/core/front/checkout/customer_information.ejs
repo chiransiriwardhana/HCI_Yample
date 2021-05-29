@@ -1,0 +1,46 @@
+<div>
+    <h4 style="color:forestgreen">
+        <%= __('Customer Information') %>
+    </h4>
+
+    <div class="row" style="align-content: center;text-align: center">
+
+        <div class="col-sm-6">
+            <Label> <%= __('Name') %> </label>
+                           <Input type="text" class="form-control" id="name" name="name"
+                                  placeholder="<%= __('Please enter name') %>"
+                                  value="<% if (typeof user == 'object' && user) {
+                                  } %>" >
+        </div>
+
+        <div class="col-sm-6">
+            <Label> <%= __('Phone') %> </label>
+                           <Input type="text" class="form-control" id="phone" name="phone"  placeholder="<%= __('Please enter phone number') %>"
+                                  value="<% if (typeof user == 'object' && user) { } %>" >
+        </div>
+                    
+        <!--div class="col-sm-6">
+                                       <label > <%= __('Zip') %> </label>
+                                       <input type="text" class="form-control" id="postcode" name="postcode" placeholder="<%= __('Please enter your zip code') %>"
+                                              value="<% if (typeof user == 'object' && user) {
+            user.postcode
+        } %> " required>
+                    </div-->
+    </div>
+
+
+
+    <div class="row" style="align-content: center;text-align: center">
+
+        <div class="col-sm-6">
+            <Label> <%= __('Email') %> </label>
+                           <Input type="text" class="form-control" id="email" name="email"
+                                  placeholder="<%= __('Please enter the email') %>"
+                                  value="<% if (typeof user == 'object' && user) {
+                                  } %>" >
+        </div>
+                 
+    </div>
+
+
+</div>

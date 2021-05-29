@@ -1,0 +1,83 @@
+{
+  "name": "ymple-ecommerce",
+  "author": {
+    "name": "Fabien Thetis",
+    "email": "@thetisfabien"
+  },
+  "homepage": "https://www.ymple.com",
+  "private": false,
+  "version": "1.1.4",
+  "description": "Ymple Ecommerce Nodejs a Node.js and Sailsjs Ecommerce Solution ( E-commerce / M-commerce)",
+  "keywords": [
+    "nodejs",
+    "sails",
+    "ecommerce",
+    "e-commerce",
+    "ymple",
+    "ymple-ecommerce",
+    "mcommerce",
+    "m-commerce",
+    "mobile ecommerce"
+  ],
+  "dependencies": {
+    "async": "^2.4.1",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.4.6",
+    "connect-mongo": "^0.8.2",
+    "csextends": "^1.1.1",
+    "ejs": "~2.5.6",
+    "formidable": "^1.0.15",
+    "geojsonhint": "^2.0.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-jst": "^1.0.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sails-linker": "^1.0.4",
+    "grunt-sync": "^0.6.2",
+    "hat": "0.0.3",
+    "include-all": "~4.0.3",
+    "jsonfile": "^3.0.0",
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.0",
+    "mongo": "^0.1.0",
+    "mongodb": "^2.2.26",
+    "nodemailer": "^4.0.1",
+    "paypal-rest-sdk": "^1.7.1",
+    "promise-async": "^0.2.0",
+    "underscore":"^1.8.3",
+    "rc": "~1.2.1",
+    "sails": "^1.0.0-42",
+    "sails-disk": "~0.10.0",
+    "sails-hook-autoreload": "^1.0.0",
+    "sails-hook-i18n": "^0.1.1",
+    "sails-hook-nested-services": "^0.1.0",
+    "sails-hook-orm": "^1.0.9",
+    "sails-hook-sockets": "^0.13.11",
+    "sails-mongo": "^0.12.*",
+    "shortid": "^2.0.1",
+    "skipper-gridfs": "^0.5.2",
+    "swig": "^1.4.2"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "debug": "node debug app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Ymple/ymple-ecommerce.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "bootstrap": "^4.0.0-alpha.2",
+    "grunt-contrib-handlebars": "^1.0.0",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
+  }
+}

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var $add = $('button[data-role="add"]');
+        var $buy = $('button[data-role="buy"]');
+        $add.on('click', AddToCart);
+        $buy.on('click', AddToCart);
+        function AddToCart() {
+
+            console.log('this', $(this));
+
+            var product_id = $(this).data('id');
+
+            var quantityId = 'quantity-'+product_id;
+
+            var quantity = $('#'+quantityId).find(":selected").text();
+
+            console.log('quantity', quantity);
+
+            var loc = '/';
+
+            if ($(this).data('role') === 'buy') {
+                loc = '/cart';
+
+            }
+            else{
+                alert('Product Added');
+
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '/cart/add/' + product_id + '?quantity=' + quantity,
+                success: function (data, status) {
+
+                    //window.location = loc;
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        }
+    });
+</script>

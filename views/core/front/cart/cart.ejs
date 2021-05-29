@@ -1,0 +1,126 @@
+<%include ../templates.navbar.ejs%>
+
+<br><br>
+
+<div class="container">
+
+    <h3 style="color:forestgreen"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <%= __('Cart') %> <a href="/cart/clear" class="btn btn-warning pull-right"> <%= __('Empty Cart') %> </a></h3>
+    <hr/>
+
+    <% if (cart.length <= 0) { %>
+    <h3><%= __('Your shopping cart is currently empty') %></h3>
+    <% } else { %>
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+
+                    <th> <%= __('name') %> </th>
+                    <th> <%= __('Price') %> </th>
+                    <th> <%= __('Quantity') %> </th>
+                    <th> <%= __('total') %> </th>
+
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% cart.forEach(function (product){ %>
+                <a href="#">
+                    <tr data-id="<%= product.id %>">
+                        <!--td>{{ loop.index %></td-->
+                        <td><%= product.name %></td>
+                        <td><%= sails.config.project.currency.symbol %> <%= product.price | 'currency' %></td>
+                        <!--td><input class="form-control" type="text" value="<%= product.quantity %>"/></td-->
+
+                        <td>
+                            <select  type="text" class="form-control" name="quantity">
+
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4 </option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8 </option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+
+                        </select>
+
+                        </td>
+
+                        <td><%= sails.config.project.currency.symbol %><%= (product.price * product.quantity) | 'currency' %></td>
+
+                        <td>
+                            <button class="btn btn-xs btn-primary" button-action="apply">APPLY</button>
+                            <button class="btn btn-xs btn-danger" button-action="delete">DELETE</button>
+                        </td>
+                    </tr>
+                </a>
+                <% }) %>
+
+                <tr>
+                    <td colspan="2"><%= __('Sum') %></td>
+                    <td><%= total %></td>
+                    <td colspan><%= sails.config.project.currency.symbol %><%= summary | 'currency' %></td>
+                    <td><a href="/checkout" class="btn btn-success"><%= __('Order') %></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <% } %>
+</div>
+
+
+<%- include ../../commun/library.ejs %>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[button-action="apply"]').on('click', function () {
+            var product_id = $(this).parent().parent().data('id');
+
+            var quantity = $('select[name=quantity]').val();
+
+            $.ajax({
+                type: 'PUT',
+                url: '/cart/apply/' + product_id + '?quantity=' + quantity,
+                success: function (data, status) {
+                    window.location = '/cart';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+
+        // POST DELETE
+        $('[button-action="delete"]').on('click', function () {
+            if (!confirm('Do you really want to delete this?')) {
+                return;
+            }
+
+            var product_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/cart/' + product_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/cart';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+    });
+</script>

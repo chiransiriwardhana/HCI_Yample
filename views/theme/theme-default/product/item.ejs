@@ -1,0 +1,147 @@
+<div class="col-md-9">
+    <div class="row" id="Container">
+
+
+
+        <% if (typeof test == '1' ) { %>
+
+        <div class="col-sm-4 mix category-smartphone" data-price="64900" data-date="20130521" data-popularity="3">
+            <div class="ec-box">
+                <div class="ec-box-header"><a href="#">Iphone 5S</a></div>
+                <a href="#"><img src="/img/demo/e_img01.jpg" alt=""></a>
+                <div class="ec-box-footer">
+                    <span class="label label-primary">$ 649.00</span>
+                    <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mix category-keyboard" data-price="4999" data-date="20130421" data-popularity="8">
+            <div class="ec-box">
+                <div class="ec-box-header"><a href="#">Keyboard Pro Game</a></div>
+                <a href="#"><img src="/img/demo/e_img02.jpg" alt=""></a>
+                <div class="ec-box-footer">
+                    <span class="label label-primary">$ 49.99</span>
+                    <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mix category-smartphone" data-price="24999" data-date="20121409" data-popularity="7">
+            <div class="ec-box">
+                <div class="ec-box-header"><a href="#">Bq Aquaris 5 16GB White</a></div>
+                <a href="#"><img src="/img/demo/e_img03.jpg" alt=""></a>
+                <div class="ec-box-footer">
+                    <span class="label label-primary">$ 249.99</span>
+                    <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mix category-smartphone" data-price="9995" data-date="20130521" data-popularity="10">
+            <div class="ec-box">
+                <div class="ec-box-header"><a href="#">Doogee Voyager DG300 Black</a></div>
+                <a href="#"><img src="/img/demo/e_img04.jpg" alt=""></a>
+                <div class="ec-box-footer">
+                    <span class="label label-primary">$ 99.95</span>
+                    <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mix category-graphic" data-price="22400" data-date="20111225" data-popularity="9">
+            <div class="ec-box">
+                <div class="ec-box-header"><a href="#">Gigabyte GeForce GTX 660</a></div>
+                <a href="#"><img src="/img/demo/e_img05.jpg" alt=""></a>
+                <div class="ec-box-footer">
+                    <span class="label label-primary">$ 224.00</span>
+                    <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mix category-smartphone" data-price="49999" data-date="20140102" data-popularity="12">
+            <div class="ec-box">
+                <div class="ec-box-header"><a href="#">Google Nexus 5 16GB Black</a></div>
+                <a href="#"><img src="/img/demo/e_img06.jpg" alt=""></a>
+                <div class="ec-box-footer">
+                    <span class="label label-primary">$ 499.99</span>
+                    <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <%}else{%>
+
+
+    <% products.forEach(function(product, i){ %>
+
+        <div class="col-xs-12 col-sm-6 col-md-4" style="display: inline-block;">
+            <div class="ec-box">
+                <div class="ec-box-header"><%= product.name %></div>
+
+                <a href="/product/<%= product.idProduct %>">
+                    <% if (product.isImageAvailable == 1 ){ %>
+
+                    <img style="height: 200px;width: 250px;" class="img-rounded-ymple" src="/images/product/<%= product.idProduct %>/1.png">
+
+
+
+                    <% }else { %>
+
+                    <img style="max-height: 200px;max-width: 200px" class="img-rounded-ymple" src="/images/ymple/product-example.png">
+
+
+                    <% } %>
+                </a>
+
+                <%# if (product.thumbnail){ %>
+                <%#  product.thumbnail  } else {  "http://lorempixel.com/500/500" } %>
+                <div class="caption text-left">
+
+                        <span class="badge badge-info pull-right"><%= sails.config.project.currency.symbol %>
+                            <%= product.price %>
+                        </span>
+                    </h3>
+
+                    <p class="ellipsis"> <%= product.description %> </p>
+                    <div class="ec-box-footer">
+                    <div>
+                        <select class="" name="quantity" id = "quantity-<%= product.idProduct %>">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+
+
+
+                        <button data-id="<%= product.idProduct %>"   data-role="add" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> <%= __('Add') %></button>
+
+
+
+                        <button data-id="<%= product.idProduct %>" data-role="buy"   class="btn btn-primary btn-sm"><%= __('Purchase') %></button>
+                    </div>
+                        </div>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    <% }) %>
+
+        <%}%>
+
+</div>
+    </div>
+

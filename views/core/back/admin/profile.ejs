@@ -1,0 +1,72 @@
+
+<!-- Navigation Bar -->
+<%#- include ../front/templates.navbar.ejs %>
+<!-- Navigation Bar -->
+
+
+
+<div class="">
+    <h4 class = "submenu"><%= __('PROFILE') %></h4>
+    <hr/>
+
+    <div class="row">
+            <br>
+            <form class="form-horizontal" role="form" action="/user/<%= user.id %>" method="POST">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label> Name </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" class="form-control" id="name" name="name" placeholder="Please enter your name"
+                                                                                            value="<%= user.name%>">
+                    </div>
+                    <div class="col-sm-6">
+                        <label style="align-content: center;text-align: center"> Email</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control" id="price" name="price" placeholder="Please enter the price"
+                                                       value="<%= user.email%>">
+                    </div>
+                </div>
+
+<br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label> Telefone </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text"
+                                                                                            class="form-control" id="name" name="name" placeholder="Please enter your name"
+                                                                                            value="<%= user.phone%>">
+                    </div>
+                    <div class="col-sm-6">
+                        <label style="align-content: center;text-align: center">  Address </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control" id="price" name="price" placeholder="Please enter the price" value="<%= user.address %>">
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label> Zip </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text"
+                                                                                            class="form-control" id="name" name="name" placeholder="Please enter your name"
+                                                                                            value="<%= user.postcode%>">
+                    </div>
+                    <div class="col-sm-6">
+                        <label style="align-content: center;text-align: center">   </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control" id="price" name="price" placeholder="Please enter the price" value="<%= user.address %>">
+                    </div>
+                </div>
+
+                        
+                <hr/>
+                        
+                <div class="row">
+                    <div class="col-sm-6">
+                  
+                <Button type="submit" class="btn btn-primary pull-right"> <%= __('Save') %> </button>
+
+                        </div></div>
+            </form>
+        </div>
+
+
+
+</div>
+

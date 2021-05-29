@@ -1,0 +1,63 @@
+<nav class="navbar navbar-default" role="navigation" >
+
+    <div class="container-fluid" style="border-radius: 0%; background: #fff;" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu-navbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--a class="navbar-brand" href="#">Ymple Commerce</a-->
+        </div>
+        <div class="navbar-collapse collapse" id="header-menu-navbar_1">
+
+            <ul class="nav navbar-nav">
+                <!--/have as a mvc section -->
+                <li>
+                    <a href="/admin/product/list"  style="font-size: 15px;">Product List</a>
+                </li>
+                <!--/have as a mvc section -->
+                <li>
+                    <a href="/admin/category/list" style="font-size: 15px;">Category List</a>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" id="right_navbar">
+
+                <!--li class="" style="float: right">
+                    <div style="margin-top: 13px" href="#" class="dropdown-toggle navbar-ymple">DEMO MODE &nbsp;
+                        <input id="toggle-one" type="checkbox"  data-toggle="toggle">
+                    </div>
+                    </li-->
+
+                <li class="" style="float: right">
+                    <div style="margin-top:15px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ENG<span class="caret"></span>
+                        &nbsp;&nbsp;&nbsp;</div>
+                    <ul class="dropdown-menu">
+                        <li class=" dropdown">
+                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ES</a>
+                        </li>
+                        <li><a href="#">DE</a></li>
+                        <li><a href="#">FR</a></li>
+                        <li><a href="#">IT</a></li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+<script>
+    $(function() {
+        $('#toggle-one').change(function() {
+            console.log('event toggle');
+            console.log ($(this).prop('checked'));
+
+        })
+    })
+</script>

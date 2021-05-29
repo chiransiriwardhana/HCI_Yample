@@ -1,0 +1,114 @@
+<div class="">
+    <h3 class="submenu"><i class="fa fa-fw fa-truck"> </i> <%= __('Order History') %> </h3>
+    <hr/>
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th> <%= __('one generation') %> </th>          
+                    <th> <%= __('Name') %> </th>
+                    <th> <%= __('Products') %> </th>
+                    <Th> <%= __('Price') %> </th>
+                    <Th> <%= __('Telephone') %> </th>
+                    <Th> <%= __('Address') %> </th>
+                    <Th> <%= __('Shipping') %> </th>
+                    <Th> <%= __('Payment') %> </th>
+                    <Th> <%= __('Status') %> </th>
+                    <th> <%= __('Details') %> </th>
+                    <th> <%= __('Update Status') %> </th>
+
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% orders.forEach(function (order) { %>
+                <tr data-id="<%= order.id %>">
+                    <!--td>{{ loop.index %></td-->
+                    <td><%= order.createdAt %></td>
+                    <td>
+                        <% if (order.owner) { %>
+                        <a href="/user/<%= order.owner.id %>"><%= order.name %></a>
+                        <% } else { %>
+                        <%= order.name %>
+                        <% } %>
+                    </td>
+                    <td>
+
+                        <% if (order.products) { order.products.forEach(function(product){ %>
+                        <a href="/product/view/<%= product.id %>"><%= product.name %></a>
+                        <%= product.quantity %>
+                        <% })}; %>
+                    </td>
+                    <td><%= order.price %></td>
+                    <td><%= order.phone %></td>
+                    <td><%= order.address %></td>
+
+                    <td>
+                        <Span class="badge badge-success"> <%= __('advance payment') %> </span>
+                    </td>
+                                
+                    <td>
+                        <span class="badge badge-default"> <%= order.payment %>
+                        </span>
+                    </td>
+                                
+                    <Td>
+                                       <Span class="badge badge-default"> <%= __('standby payment') %> </span>
+                    </td>
+<td>Status</td>
+
+                    <td>
+                        <a href="#/admin/product/preview/<%= order.id %>" class="btn btn-xs btn-default" button-action="edit">DETAILS</a>
+                    </td>
+                    <td>
+                        <a href="#/admin/product/preview/<%= order.id %>" class="btn btn-xs btn-default" button-action="edit">UPDATE</a>
+                    </td>
+
+                </tr>
+
+                <% }); %>
+                </tbody>
+            </table>
+
+            <div style="text-align: center;">
+                <ul class="pagination">
+                    <li><a href="/admin/order">&laquo;</a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // POST DELETE
+        $('[button-action="delete"]').on('click', function () {
+            if (!confirm('Do you really want to delete this?')) {
+                return;
+            }
+            var product_id = $(this).data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/order/' + product_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/admin/order';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+    });
+</script>
+
+

@@ -1,0 +1,2 @@
+Service are implemented to access the data from query not using the model.
+You can check the database structure and data format on the documentation of ymple: doc.ymple.com

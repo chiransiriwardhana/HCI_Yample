@@ -1,0 +1,174 @@
+<% include ../templates.navbar.ejs %>
+
+<br>
+
+<div class="container">
+    <form role="form" id="order" action="/order" method="POST">
+
+        <h3 style="color:forestgreen"> <%= __('Checking out') %> <a href="/cart"
+                                                                    class="btn btn-warning pull-right"> <%= __('change') %> </a>
+        </h3>
+
+        <% if ( typeof cart == 'undefined' ){ %>
+
+        <h3> <%= __('You Cart is currently empty') %> </h3>
+
+        <% } %>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+
+                <Th> <%= __('name') %> </th>
+                <th> <%= __('Price') %> </th>
+                <th> <%= __('Quantity') %> </th>
+                <th> <%= __('total') %> </th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <% cart.forEach(function(product){ %>
+            <tr data-id="{{ product.id %>">
+                <!--td>{{ loop.index %></td-->
+
+
+                <td><%= product.name %></td>
+                <td><%= sails.config.project.currency.symbol %><%= product.price | 'currency' %></td>
+                <td><%= product.quantity %></td>
+                <td><%= sails.config.project.currency.symbol %><%= (product.price * product.quantity) | 'currency' %></td>
+            </tr>
+            <% }) %>
+
+            <tr>
+                <td colspan="1"><b> <%= __('Sum') %></b></td>
+                <td>
+
+                </td>
+                <td><%= total %></td>
+                <td><%= sails.config.project.currency.symbol %><%= summary | 'currency' %></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+        <br>
+        <% if (typeof isLogin != 'undefined' && isLogin) { %>
+
+
+        <%- include payment-delivery-method.ejs %>
+
+
+        <br>
+
+        <%- include customer_information.ejs %>
+
+        <br>
+
+        <%- include delivery_information.ejs %>
+
+        <br>
+        <br>
+
+
+        <div style ="text-align: center">
+        <button type="submit" class="btn btn-info btn-lg">
+            <%= __('order') %>
+        </button>
+        </div>
+
+
+
+        <% } else {%>
+
+        <div class="row">
+
+            <div class="col-sm-6 ">
+                <a href="/login?redirect_url=/checkout" type="submit" class="btn btn-primary">       <%= __('Login to Continue') %>   </a>
+            </div>
+
+
+            <div class="col-sm-6 ">
+                <a href="/login?redirect_url=/checkout" type="submit" class="btn btn-primary">       <%= __('Sign Up to Continue') %>   </a>
+
+            </div>
+
+        </div>
+
+<%}%>
+
+    </form>
+</div>
+
+<%- include ../../commun/library.ejs %>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#order').validate({
+            lang: 'ko',
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            }
+        });
+
+        jQuery.extend(jQuery.validator.messages, {
+            required: "Required entry.",
+        });
+
+        $('[button-action="apply"]').on('click', function () {
+            var product_id = $(this).parent().parent().data('id');
+            var quantity = $(this).parent().parent().find('input').val();
+
+            $.ajax({
+                type: 'PUT',
+                url: '/cart/apply/' + product_id + '?quantity=' + quantity,
+                success: function (data, status) {
+                    window.location = '/cart';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+
+        // POST DELETE
+        $('[button-action="delete"]').on('click', function () {
+            if (!confirm('Do you really want to delete this?')) {
+                return;
+            }
+
+            var product_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/product/' + product_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/admin/product';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- STYLESHEETS -->
+<style>
+    .error {
+        color: red;
+        margin: 5px;
+    }
+</style>
+<!-- SCRIPTS -->

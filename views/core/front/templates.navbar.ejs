@@ -1,0 +1,98 @@
+<br>
+
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu-navbar-front" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--a class="navbar-brand" href="#">Ymple Commerce</a-->
+        </div>
+
+
+        <div class="navbar-collapse collapse" id="header-menu-navbar-front" >
+
+            <ul class="nav navbar-nav">
+                <!--/have as a mvc section -->
+
+                <li >
+                    <a href="/" ><img src="/images/ymple/logo.png" alt="Smiley face" height="50" width="50"></a>
+                </li>
+
+
+                <li >
+                    <a href="/"><%= sails.config.project.name %></a>
+                </li>
+
+
+
+
+                <li>
+                    <a href="/cart"><i class="fa fa-fw fa-shopping-cart"></i> <%= __('shopping basket') %></a>
+                </li>
+
+
+
+
+                <% if (typeof user !== 'object' && typeof admin !== 'object') { %>
+
+                <li>
+                    <a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i><%= __('login') %></a>
+
+                </li>
+                <% } %>
+
+
+
+
+
+
+
+
+                <% if (typeof user == 'object' && user && user.name) { %>
+
+
+
+                <li>
+                    <a href="/profile"><i class="fa fa-user" aria-hidden="true"></i>user &nbsp;<%= user.name %></a>
+                </li>
+
+
+                <li>
+                    <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i><%= 'Logout' %></a>
+                </li>
+
+
+                <% } %>
+
+
+
+
+
+
+                <% if (typeof showSearchMenu == 'number' && showSearchMenu == 1) { %>
+
+                <li><form class="form-inline pull-xs-right navbar-form" role="search">
+                        <input class="form-control" type="text" name="name" placeholder="<%= __('Enter a product name') %>">
+                        <button class="btn btn-success-outline" type="submit"><%= __('Search') %></button>&nbsp;&nbsp;
+                    </form>
+                </li>
+                <% } %>
+
+
+
+
+
+
+            </ul>
+
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
