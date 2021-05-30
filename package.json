@@ -50,7 +50,6 @@
     "nodemailer": "^4.0.1",
     "paypal-rest-sdk": "^1.7.1",
     "promise-async": "^0.2.0",
-    "underscore":"^1.8.3",
     "rc": "~1.2.1",
     "sails": "^1.0.0-42",
     "sails-disk": "~0.10.0",
@@ -62,7 +61,8 @@
     "sails-mongo": "^0.12.*",
     "shortid": "^2.0.1",
     "skipper-gridfs": "^0.5.2",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "node app.js",
