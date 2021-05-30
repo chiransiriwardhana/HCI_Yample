@@ -82,7 +82,7 @@ module.exports = {
         }
 
 
-        CoreReadDbService.getProductList().then(function (products) {
+        CoreReadDbService.getProductList(product_query).then(function (products) {
 
                 console.log('return full product list ', products);
 
