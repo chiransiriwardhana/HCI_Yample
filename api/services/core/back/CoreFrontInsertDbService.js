@@ -1,6 +1,6 @@
 //var nodemailer = require('nodemailer');
 var bcrypt = require('bcryptjs');
-
+require('dotenv').config()
 // create reusable transporter object using SMTP transport
 //var transporter = nodemailer.createTransport({
  //   service: 'Gmail',
@@ -11,7 +11,7 @@ console.log('sails.config.connections');
 var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
-var urlConnection = process.env['MONGODB_URI'];
+var urlConnection = process.env.MONGODB_URI;
 
 
     module.exports = {

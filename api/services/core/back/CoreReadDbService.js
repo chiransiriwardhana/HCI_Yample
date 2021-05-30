@@ -1,7 +1,11 @@
 var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
-var url = process.env['MONGODB_URI'] ;
+
+require('dotenv').config()
+
+var url = process.env.MONGODB_URI ;
+
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
 
