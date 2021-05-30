@@ -17,7 +17,7 @@ var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
 //var urlConnection = "mongodb://localhost:27017/ymple-commerce"; // get the connexion.js database name
-var urlConnection = "mongodb+srv://" + host + '/' + database;
+var urlConnection = "mongodb://" + host + ":" + port + '/' + database  || process.env.MONGODB_URI;
 
 getValueFromArray = function (data, element, type) {
 

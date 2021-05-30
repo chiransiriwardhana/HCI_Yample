@@ -4,7 +4,7 @@ var bcrypt = require('bcryptjs');
 var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
-var urlConnection = "mongodb+srv://" + host + '/' + database;
+var urlConnection = "mongodb://" + host + ":" + port + '/' + database  || process.env.MONGODB_URI ;
 
 var ObjectId = require('mongodb').ObjectID;
 
