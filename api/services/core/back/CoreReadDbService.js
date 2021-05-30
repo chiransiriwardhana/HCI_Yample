@@ -434,7 +434,7 @@ module.exports = {
         return promise;
     },
 
-    getProductList: function (idCategory) { // return the data and item information about one order
+    getProductList: function (query) { // return the data and item information about one order
 
         var promise = new Promise(
             function (resolve, reject) {
@@ -449,7 +449,12 @@ module.exports = {
 
                     var col = db.collection(collection);
 
-                    var findQuery = {};
+                    if(query==""){
+                        var findQuery = {};
+                    } else {
+                        var regex = new RegExp(query, "i");
+                        var findQuery = {name: regex};
+                    }
 
                     col.find(
                         findQuery
