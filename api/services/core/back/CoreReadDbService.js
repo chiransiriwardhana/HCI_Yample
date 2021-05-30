@@ -447,7 +447,17 @@ module.exports = {
 
                 MongoClient.connect(url, function (err, db) {
 
+                    if (err) {
+                        console.log(err)
+                    }
+                    if (db) {
+
+                    
                     var col = db.collection("product");
+
+                    if (!col) {
+                        console.log("collection unavilabel")
+                    }
 
                     if(query==""){
                         var findQuery = {};
@@ -466,6 +476,7 @@ module.exports = {
 
                         resolve(data);    //docs[0].name.toString()); // returns to the function that calls the callback
                     })
+                }
                 })
             })
 
