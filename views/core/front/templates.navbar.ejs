@@ -1,8 +1,8 @@
 <br>
 
 
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid ">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu-navbar-front" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -20,86 +20,59 @@
                 <!--/have as a mvc section -->
 
                 <li >
-                    <a href="/" ><img src="/images/ymple/logo.png" alt="Smiley face" height="50" width="50"></a>
+                    <a href="/" ><img src="/images/ymple/logo.png" alt="Smiley face" height="70" width="70"> <%=  sails.config.project.name %> </a>
+                    
                 </li>
-
-
-                <li >
-                    <a href="/"><%= sails.config.project.name %></a>
-                </li>
-
-
-
-
-                <li>
-                    <a href="/cart"><i class="fa fa-fw fa-shopping-cart"></i> <%= __('shopping basket') %></a>
-                </li>
-
-
-
-
-                <% if (typeof user !== 'object' && typeof admin !== 'object') { %>
-
-                <li>
-                    <a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i><%= __('login') %></a>
-
-                </li>
-                <% } %>
-
-
-
-
-
-
-
-
-                <% if (typeof user == 'object' && user && user.name) { %>
-
-
-
-                <li>
-                    <a href="/profile"><i class="fa fa-user" aria-hidden="true"></i>user &nbsp;<%= user.name %></a>
-                </li>
-
-
-                <li>
-                    <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i><%= 'Logout' %></a>
-                </li>
-
-
-                <% } %>
-
-
-
-
-
-
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <% if (typeof showSearchMenu == 'number' && showSearchMenu == 1) { %>
 
-                <li><form class="form-inline pull-xs-right navbar-form" role="search">
-                        <input class="form-control" id="searchInput" type="text" name="name" placeholder="<%= __('Enter a product name') %>">
-                        <button class="btn btn-success-outline" type="submit"><%= __('Search') %></button>&nbsp;&nbsp;
-                    </form>
-                </li>
-                <li style="margin-top: 29px; margin-left: -10px;">
-                    <button style="outline: none; outline-width: 0ch; outline-color: blueviolet;" onclick="runSpeechRecognition()"><i class="fa fa-microphone"></i></button>
-                </li>
-                <li style="margin-top: 29px; margin-left: 2px;">
-                    <button onclick="clearSearch()" id="clearsh" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
-                </li>
-                <% } %>
+                    <li ><form class="form-inline pull-xs-right navbar-form" role="search">
+                            <input class="form-control" width="300" type="text" name="name" placeholder="<%= __('Enter a product name') %>">
+                            <button class="btn btn-success" type="submit"><%= __('Search') %></button>&nbsp;&nbsp;
+                        </form>
+                    </li>
+                    <li style="margin-top: 8px; margin-right: 10px; ">
+                        <button class="btn btn-success" onclick="runSpeechRecognition()"><i class="fa fa-microphone"></i></button>
+                    </li>
+                    <li style="margin-top: 8px; margin-right: 10px; ">
+                        <button onclick="clearSearch()" id="clearsh" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    </li>
+                    <% } %>
 
+                       
+                <% if (typeof user !== 'object' && typeof admin !== 'object') { %>
 
-
-
-
-
-            </ul>
+                    <li class="">
+                        <a href="/login"><i class="fa fa-user fa-2x" aria-hidden="true"></i><%= __(' Login') %></a>
+    
+                    </li>
+                    <% } %>
+                    <% if (typeof user == 'object' && user && user.name) { %>
+    
+    
+    
+                        <li class="">
+                            <a href="/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i> <%= user.name %></a>
+                        </li>
+        
+        
+                        <li class="">
+                            <a href="/logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i><%= 'Logout' %></a>
+                        </li>
+        
+        
+                        <% } %>
+                        <li class="">
+                            <a href="/cart" class="text-white"><i class="fa fa-fw fa-shopping-cart md fa-2x"></i><%= 'Cart' %> </a>
+                        </li>
+              </ul>
 
 
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
+
 
 
 <script>

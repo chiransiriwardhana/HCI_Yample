@@ -99,9 +99,7 @@
                 <%#  product.thumbnail  } else {  "http://lorempixel.com/500/500" } %>
                 <div class="caption text-left">
 
-                        <span class="badge badge-info pull-right"><%= sails.config.project.currency.symbol %>
-                            <%= product.price %>
-                        </span>
+                        
                     </h3>
 
                     <p class="ellipsis"> <%= product.description %> </p>
@@ -126,7 +124,7 @@
 
 
 
-                        <button data-id="<%= product.idProduct %>" data-role="buy"   class="btn btn-primary btn-sm"><%= __('Purchase') %></button>
+                        <span class="label label-primary"><%= sails.config.project.currency.symbol %> <%= product.price %></span>
                     </div>
                         </div>
                     <br>
