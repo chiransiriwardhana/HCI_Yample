@@ -18,55 +18,60 @@ var urlConnection = "mongodb://" + host + ":" + port + '/' + database;
 
 
         startCreateUserFront: function (req) { // Start creation flow user front
+            var promise = new Promise(
+                function (resolve, reject) {
+                    console.log (' UserController - req - test1 ', req.body );
 
-            console.log (' UserController - req - test1 ', req.body );
+                    var MongoClient = require('mongodb').MongoClient;
+                    console.log('start - createUserAdminDefault  - urlConnexion ', urlConnection);
 
-            var MongoClient = require('mongodb').MongoClient;
-            console.log('start - createUserAdminDefault  - urlConnexion ', urlConnection);
+                    //Connect to the db
+                    MongoClient.connect(urlConnection).then(function (db) {
 
-            //Connect to the db
-            MongoClient.connect(urlConnection).then(function (db) {
+                        var password = req.body.password;
+                        var name = req.body.name;
+                        var email = req.body.email;
+                        var subscriptionConfirmed = 0 ;
+                        var token = 0 ;
 
-                var password = req.body.password;
-                var name = req.body.name;
-                var email = req.body.email;
-                var subscriptionConfirmed = 0 ;
-                var token = 0 ;
-
-                bcrypt.genSalt(10, function (err, salt) {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        bcrypt.hash(password, salt, function (err, hash) {
+                        bcrypt.genSalt(10, function (err, salt) {
                             if (err) {
-                                console.log(err);
-                            } else {
-                                //console.log('hash', hash);
+                                console.log(err)
+                            }
+                            else {
+                                bcrypt.hash(password, salt, function (err, hash) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        //console.log('hash', hash);
 
-                                var collection = 'user';
-                                var date = new Date();
-                                var createdAt = date.toISOString();
-                                var updatedAt = '';
+                                        var collection = 'user';
+                                        var date = new Date();
+                                        var createdAt = date.toISOString();
+                                        var updatedAt = '';
 
-                                var dataToInsert = {
-                                    name: name,
-                                    email: email,
-                                    password: hash,
-                                    permission: 'Customer',
-                                    createdAt: createdAt,
-                                    updatedAt: updatedAt,
-                                    subcriptionConfirmed: subscriptionConfirmed,
-                                    token: token
-                                }
+                                        var dataToInsert = {
+                                            name: name,
+                                            email: email,
+                                            password: hash,
+                                            permission: 'Customer',
+                                            createdAt: createdAt,
+                                            updatedAt: updatedAt,
+                                            subcriptionConfirmed: subscriptionConfirmed,
+                                            token: token
+                                        }
 
-                                var collection = db.collection(collection);
-                                collection.insert(dataToInsert);
+                                        var collection = db.collection(collection);
+                                        collection.insert(dataToInsert);
+                                        resolve(dataToInsert);
+                                    }
+                                });
                             }
                         });
-                    }
-                });
-            });
+                    });
+                }
+            )
+            return promise;
         }
 
 
