@@ -7,7 +7,7 @@ var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
 
-var urlConnection = "mongodb://" + host + ":" + port + '/' + database;
+var urlConnection = "mongodb+srv://" + host + '/' + database;
 
 getValueFromArray = function (data, element, type) {
 
