@@ -447,7 +447,7 @@ module.exports = {
 
                 MongoClient.connect(url, function (err, db) {
 
-                    var col = db.collection(collection);
+                    var col = db.db("ymple").collection("product");
 
                     if(query==""){
                         var findQuery = {};
