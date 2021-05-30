@@ -7,7 +7,7 @@ var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
 
-var urlConnection =  process.env.MONGODB_URI; 
+var urlConnection =  process.env['MONGODB_URI']; 
 
 getValueFromArray = function (data, element, type) {
 
