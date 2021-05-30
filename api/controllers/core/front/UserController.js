@@ -102,11 +102,105 @@ module.exports = {
 
         if (req.body.name && req.body.email && req.body.password) {
 
-            CoreFrontInsertDbService.startCreateUserFront(req);
+            // CoreFrontInsertDbService.startCreateUserFront(req);
 
-            console.log('UserController.js - step 1 subscription done');
-
-            return res.redirect('/');
+            // console.log('UserController.js - step 1 subscription done');
+            // ################  Auto sign in part  ###############
+            async.waterfall([
+                function CreateUser(next){
+                    CoreFrontInsertDbService.startCreateUserFront(req).then((user)=>{
+                        console.log('UserController.js - step 1 subscription done');
+                        return next(null,user)
+                    });
+                },
+                function GetUser(user, next) {
+                    try {
+                        var email = req.body.email;
+    
+                        // CoreReadDbService.getUserItemByEmail(email).then(function (user) {
+    
+                    //User.findOne({'email': req.body.email}).exec(function (err, user) {
+    
+                        console.log('UserController - login - user', user);
+    
+                        //  if (err) return next(err);
+    
+                            return next(null, user);
+                        // });
+                    }
+                    catch (err) {
+                        // Handle the error here.
+                        console.log(err);
+                    }
+                },
+    
+                function Validate(user, next) {
+    
+                    try {
+    
+                        if (user && user.password) {
+    
+                            bcrypt.compare(req.body.password, user.password, function (err, isSuccess) {
+                                if (err) return next(err);
+    
+                                if (isSuccess) {
+                                    req.session.authenticated = true;
+                                    req.session.user = user;
+                                }
+                                else { // login view with error message
+                                    var dataView = [];
+                                    dataView.message = 'user or password not correct';
+                                    return res.view(pathTemplateFrontCore + 'login.ejs', dataView);
+                                }
+    
+                                return next(null, isSuccess);
+                            });
+                        }
+                        else{
+                            var dataView = [];
+                            dataView.message = 'This email not registered with the systemjjj';
+                            return res.view(pathTemplateFrontCore + 'login.ejs', dataView);
+    
+                            console.log ('UserController - User not found');
+    
+                            // error of user password
+    
+                            var url = '/login?error_user=1';
+    
+                            return res.redirect(url);
+    
+                        }
+    
+    
+                    }
+                    catch (err) {
+                        // Handle the error here.
+                        console.log(err);
+    
+                    }
+    
+    
+                }
+            ], function (err, isSuccess) {
+                if (err) return res.serverError(err);
+                if (!isSuccess) {
+                    return res.serverError('Or permission. The password is different.');
+                }
+                else {
+    
+                    console.log('redirect_url', req.query);
+    
+                    var url = '/';
+    
+                    if (req.query.redirect_url) {
+    
+                        url = req.query.redirect_url;
+                    }
+    
+                    return res.redirect(url);
+                }
+            });
+            // ################  Auto sign in part end ###############
         }
         else {
 
@@ -152,7 +246,7 @@ module.exports = {
             //User.findOne({'email': req.body.email}).exec(function (err, user) {
 
 
-                console.log('UserController - login - user', user);
+                 console.log('UserController - login - user', user);
 
                   //  if (err) return next(err);
 
@@ -191,7 +285,9 @@ module.exports = {
                         });
                     }
                     else{
-
+                        var dataView = [];
+                        dataView.message = 'This email not registered with the system';
+                        return res.view(pathTemplateFrontCore + 'login.ejs', dataView);
                         console.log ('UserController - User not found');
 
                         // error of user password
