@@ -56,7 +56,67 @@
 </section>
 
 <br>
-
+<script>
+    function lowToHigh(){
+        var now = window.location.href;
+        if(now.includes('name')){
+            if(now.includes('order')){
+                    now = now.replace('order=high','order=low');
+            }
+            else{
+                now = now+"&"+"order=low";
+            }
+        } else{
+            if(now.includes('order')){
+                    now = now.replace('order=high','order=low');
+            }
+            else{
+                now = now+"?"+"order=low";
+            }
+        }
+        window.location.href = now;
+    }
+    function highToLow(){
+        var now = window.location.href;
+        if(now.includes('name')){
+            if(now.includes('order')){
+                now = now.replace('order=low','order=high');
+            }
+            else{
+                now = now+"&"+"order=high";
+            }
+        } else{
+            if(now.includes('order')){
+                    now = now.replace('order=low','order=high');
+            }
+            else{
+                now = now+"?"+"order=high";
+            }
+        }
+        window.location.href = now;
+    }
+    function recentProducts(){
+        var now = window.location.href;
+        if(now.includes('name')){
+            if(now.includes('order')){
+                now = now.replace('order=low','order=date');
+                now = now.replace('order=high','order=date');
+            }
+            else{
+                now = now+"&"+"order=date";
+            }
+        } else{
+            if(now.includes('order')){
+                now = now.replace('order=low','order=date');
+                now = now.replace('order=high','order=date');
+            }
+            else{
+                now = now+"?"+"order=date";
+            }
+        }
+        window.location.href = now;
+    }
+</script>
 
 
 
@@ -65,20 +125,17 @@
         <div class="col-md-3 hidden-sm hidden-xs alert alert-success">
             <div class="ec-filters-menu">
                 <h3 class="section-title no-margin-top">Filters</h3>
-                <h4>Select Category</h4>
-                <ul>
-                    <li><a href="javascript:void(0);" class="filter" data-filter="all">All</a></li>
-                    <li><a href="javascript:void(0);" class="filter" data-filter=".category-smartphone">Smaprtphones</a></li>
-                    <li><a href="javascript:void(0);" class="filter" data-filter=".category-tv">Smart TV</a></li>
-                    <li><a href="javascript:void(0);" class="filter" data-filter=".category-keyboard">Keyboards</a></li>
-                    <li><a href="javascript:void(0);" class="filter" data-filter=".category-graphic">Graphics Cards</a></li>
-                </ul>
                 <h4>Order by</h4>
+
                 <ul>
-                    <li><a href="javascript:void(0);" class="sort" data-sort="price:asc">Price: Low to High</a></li>
-                    <li><a href="javascript:void(0);" class="sort" data-sort="price:desc">Price: High to Lo</a></li>
-                    <li><a href="javascript:void(0);" class="sort" data-sort="popularity:desc">Most Popular</a></li>
-                    <li><a href="javascript:void(0);" class="sort" data-sort="date:desc">Release Date</a></li>
+                    <li><a href="javascript:void(0);" onclick="lowToHigh()">Price: Low to High</a></li>
+                    <li><a href="javascript:void(0);" onclick="highToLow()">Price: High to Low</a></li>
+                    <li><a href="javascript:void(0);" onclick="recentProducts()">Release Date</a></li>
+                    <!-- <li><a href="javascript:void(0);" class="sort" data-sort="price:asc">Price: Low to High</a></li> -->
+                    <!-- <li><a href="javascript:void(0);" class="sort" data-sort="price:asc">Price: Low to High</a></li>
+                    <li><a href="javascript:void(0);" class="sort" data-sort="price:desc">Price: High to Lo</a></li> -->
+                    <!-- <li><a href="javascript:void(0);" class="sort" data-sort="popularity:desc">Most Popular</a></li> -->
+                    <!-- <li><a href="javascript:void(0);" class="sort" data-sort="date:desc">Release Date</a></li> -->
                 </ul>
             </div>
             <h3 class="section-title">Latest Offers</h3>

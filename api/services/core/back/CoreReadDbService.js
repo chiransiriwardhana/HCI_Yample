@@ -399,7 +399,7 @@ module.exports = {
         return promise;
     },
 
-    getProductListFromOneCategory: function (idCategory) { // return the data and item information about one order
+    getProductListFromOneCategory: function (idCategory, query) { // return the data and item information about one order
 
         var promise = new Promise(
             function (resolve, reject) {
@@ -415,8 +415,15 @@ module.exports = {
                     var col = db.collection(collection);
 
                     //var idProduct = input[0].id;
+                    // alert(query)
+                    console.log(query)
+                    if(query==""){
+                        var findQuery = {idCategory: idCategory};
+                    } else {
+                        var regex = new RegExp(query, "i");
+                        var findQuery = {name: regex , idCategory: idCategory};
+                    }
 
-                    var findQuery = {"idCategory": idCategory};
 
                     col.find(
                         findQuery
@@ -434,7 +441,7 @@ module.exports = {
         return promise;
     },
 
-    getProductList: function (query) { // return the data and item information about one order
+    getProductList: function (query, order) { // return the data and item information about one order
 
         var promise = new Promise(
             function (resolve, reject) {
@@ -455,10 +462,21 @@ module.exports = {
                         var regex = new RegExp(query, "i");
                         var findQuery = {name: regex};
                     }
+                    if(order==""){
+                        var orderQuery = {};
+                    } else {
+                        if(order=='low'){
+                            var orderQuery = {price: 1};
+                        } else if(order =="high") {
+                            var orderQuery = {price: -1};
+                        } else{
+                            var orderQuery = {createdAt: -1};
+                        }
+                    }
 
                     col.find(
                         findQuery
-                    ).toArray(function (err, data) {
+                    ).sort(orderQuery).toArray(function (err, data) {
                         //db.close();
                         console.log(err);
 

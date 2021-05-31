@@ -52,7 +52,7 @@ module.exports = {
 
                 try {
 
-                    CoreReadDbService.getProductListFromOneCategory(idCategory).then(function (data) {
+                    CoreReadDbService.getProductListFromOneCategory(idCategory, product_query).then(function (data) {
 
                         console.log('return product list by category', data);
 
@@ -75,7 +75,7 @@ module.exports = {
 
                     console.log('promise return value categoryList:', categoryList);
                     result.categoryList = categoryList;
-
+                    result.showSearchMenu = 1;
 
                     return res.view(theme + 'index.ejs', result);
 

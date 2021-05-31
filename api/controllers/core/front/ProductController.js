@@ -81,8 +81,9 @@ module.exports = {
             product_query = ''; //default value, return all the product
         }
 
+        order = req.query.order;
 
-        CoreReadDbService.getProductList(product_query).then(function (products) {
+        CoreReadDbService.getProductList(product_query,order).then(function (products) {
 
                 console.log('return full product list ', products);
 
