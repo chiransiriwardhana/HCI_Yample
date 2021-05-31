@@ -99,8 +99,15 @@ module.exports = {
 
 
         var data = {};
+        
+        if( req.body.name && req.body.email && req.body.password && req.body.confirm_password && (req.body.password!=req.body.confirm_password)){
+            console.log("/////////////////////////")
+            var dataView2 = [];
+            dataView2.message = "SignUp Failed. \n Password and confirm password not match. \n SignUp Again";
+            return res.view(pathTemplateFrontCore + 'login.ejs', dataView2);
+        }
 
-        if (req.body.name && req.body.email && req.body.password) {
+        else if (req.body.name && req.body.email && req.body.password) {
 
             // CoreFrontInsertDbService.startCreateUserFront(req);
 

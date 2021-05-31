@@ -4,15 +4,43 @@
 
 <div class="container">
 
-    <h3 style="color:forestgreen"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <%= __('Cart') %> <a href="/cart/clear" class="btn btn-warning pull-right"> <%= __('Empty Cart') %> </a></h3>
+    <script>
+        function functionAlert(myYes) {
+           document.getElementById('Hide').style.display='block'; 
+           var confirmBox = $("#confirm");
+           confirmBox.find("#Hide").unbind().click(function() {
+              confirmBox.hide();
+           });
+           confirmBox.find("#Hide").click(myYes);
+            confirmBox.show();
+        }
+
+        function Checkout_Alert(myYes) {
+           document.getElementById('Hide_order').style.display='block'; 
+           var confirmBox = $("#confirm_order");
+           confirmBox.find("#Hide_order").unbind().click(function() {
+              confirmBox.hide();
+           });
+           confirmBox.find("#Hide_order").click(myYes);
+            confirmBox.show();
+        }
+     </script>
+
+    <!-- <h3 style="color:forestgreen"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <%= __('Cart') %> <a href="/cart/clear" class="btn btn-warning pull-right"> <%= __('Empty Cart') %> </a></h3> -->
     <hr/>
+    <h3 style="color:forestgreen"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <%= __('Cart') %> 
+    
+    <button  class="btn btn-warning pull-right" onclick=functionAlert()><%= __('Empty Cart') %></button>
+    <div id=confirm>
+        <a href="/cart/clear" id="Hide" class="btn btn-warning pull-center" style="display: none; margin-left: 50%; color: white; background-color: green; border-radius: 6px; font-size: 17px; width: 200px; text-align: center;">Confirm Clear Cart</a>
+    </div>
 
     <% if (cart.length <= 0) { %>
     <h3><%= __('Your shopping cart is currently empty') %></h3>
     <% } else { %>
-    <div class="row clearfix">
+    <div class="row clearfix" id="table_div">
         <div class="col-lg-12">
-            <table class="table table-hover">
+            <table class="table table-hover" id="table1">
                 <thead>
                 <tr>
 
@@ -66,10 +94,13 @@
                     <td colspan="2"><%= __('Sum') %></td>
                     <td><%= total %></td>
                     <td colspan><%= sails.config.project.currency.symbol %><%= summary | 'currency' %></td>
-                    <td><a href="/checkout" class="btn btn-success"><%= __('Order') %></a></td>
+                    <td><a  class="btn btn-success" onclick=Checkout_Alert()><%= __('Order') %></a></td>
                 </tr>
                 </tbody>
             </table>
+            <div id=confirm_order>
+                <a id="Hide_order" href="/checkout" class="btn btn-warning pull-center" style="display: none; margin-left: 50%; color: white; background-color: green; border-radius: 6px; font-size: 17px; width: 180px; text-align: center;">Confirm checkout</a>
+            </div>
         </div>
     </div>
     <% } %>
@@ -124,3 +155,22 @@
         });
     });
 </script>
+
+<style>
+    #table_div{
+        margin-top: 20px;
+    }
+    
+    #table1 th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+    
+    #table1 td, #table1 th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    </style>

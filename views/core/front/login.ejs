@@ -84,12 +84,16 @@
               <input name="email" type="email" class="form-control" placeholder="Email" required autofocus
               
                style="margin-bottom: 20px; border-radius: 3px;">
-              <input name ="password" type="password" class="form-control" placeholder="Password" required
+              <input id="password" name ="password" type="password" class="form-control" placeholder="Password" required
               
               style="margin-bottom:20px; border-radius:3px">
 
+              <input id="confirm_password" name ="confirm_password" type="password" onkeyup=check() class="form-control" placeholder="Confirm Password" required
+              
+              style="margin-bottom:20px; border-radius:3px">
 
-              <button class="btn btn-lg  btn-block" type="submit" style="margin-bottom: 30px; background-color:#66cac4 ;">
+              <span id='message_confirm'></span>
+              <button class="btn btn-lg  btn-block" type="submit" id="signup_button" style="margin-bottom: 30px; background-color:#66cac4 ;">
                   Sign Up</button>
 
 
@@ -198,5 +202,18 @@
       $('#login-window').show();
     });
   });
+
+  var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    document.getElementById('message_confirm').style.color = 'green';
+    document.getElementById('message_confirm').innerHTML = 'matching';
+    document.getElementById('signup_button').disabled = false
+  } else {
+    document.getElementById('message_confirm').style.color = 'red';
+    document.getElementById('message_confirm').innerHTML = 'not matching';
+    document.getElementById('signup_button').disabled = true
+  }
+}
 </script>
 
