@@ -1,0 +1,105 @@
+<br>
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid ">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu-navbar-front" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--a class="navbar-brand" href="#">Ymple Commerce</a-->
+        </div>
+
+
+        <div class="navbar-collapse collapse" id="header-menu-navbar-front" >
+
+            <ul class="nav navbar-nav">
+                <!--/have as a mvc section -->
+
+                <li >
+                    <a href="/" ><img src="/images/ymple/logo.png" alt="Smiley face" height="70" width="70"> <%=  sails.config.project.name %> </a>
+                    
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if (typeof showSearchMenu == 'number' && showSearchMenu == 1) { %>
+
+                    <li ><form class="form-inline pull-xs-right navbar-form" role="search">
+                            <input class="form-control" width="300" type="text" name="name" placeholder="<%= __('Enter a product name') %>">
+                            <button class="btn btn-success" type="submit"><%= __('Search') %></button>&nbsp;&nbsp;
+                        </form>
+                    </li>
+                    <li style="margin-top: 8px; margin-right: 10px; ">
+                        <button class="btn btn-success" onclick="runSpeechRecognition()"><i class="fa fa-microphone"></i></button>
+                    </li>
+                    <li style="margin-top: 8px; margin-right: 10px; ">
+                        <button onclick="clearSearch()" id="clearsh" style="display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    </li>
+                    <% } %>
+
+                       
+                <% if (typeof user !== 'object' && typeof admin !== 'object') { %>
+
+                    <li class="">
+                        <a href="/login"><i class="fa fa-user fa-2x" aria-hidden="true"></i><%= __(' Login') %></a>
+    
+                    </li>
+                    <% } %>
+                    <% if (typeof user == 'object' && user && user.name) { %>
+    
+    
+    
+                        <li class="">
+                            <a href="/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i> <%= user.name %></a>
+                        </li>
+        
+        
+                        <li class="">
+                            <a href="/logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i><%= 'Logout' %></a>
+                        </li>
+        
+        
+                        <% } %>
+                        <li class="">
+                            <a href="/cart" class="text-white"><i class="fa fa-fw fa-shopping-cart md fa-2x"></i><%= 'Cart' %> </a>
+                        </li>
+              </ul>
+
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+
+<script>
+    function runSpeechRecognition() {
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var recognition = new SpeechRecognition();
+            recognition.onstart = function() {
+            document.getElementById("searchInput").placeholder = "listening...";
+        };
+        
+        recognition.onspeechend = function() {
+            recognition.stop();
+        }
+      
+        recognition.onresult = function(event) {
+            var transcript = event.results[0][0].transcript;
+            var confidence = event.results[0][0].confidence;
+            document.getElementById("searchInput").value = (document.getElementById("searchInput").value=="")? transcript : document.getElementById("searchInput").value +" "+ transcript 
+            document.getElementById('clearsh').style.display = "block"
+        };
+         recognition.start();
+    }
+</script>
+<script>
+    function clearSearch(){
+        document.getElementById("searchInput").value="";
+        document.getElementById("searchInput").placeholder="Enter a product name";
+        document.getElementById('clearsh').style.display = "none"
+    }
+</script>

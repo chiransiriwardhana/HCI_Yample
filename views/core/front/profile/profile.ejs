@@ -1,0 +1,125 @@
+<!-- Navigation Bar -->
+<%- include ../../front/templates.navbar.ejs %>
+<!-- Navigation Bar -->
+
+
+<div class="container">
+    <h3><i class="fa fa-fw fa-user"></i><%= __('profile') %></h3>
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <br>
+            <form class="form-horizontal" role="form" action="/user/<%= user.id %>" method="POST">
+                <div class="row" style="align-content: center;text-align: center">
+
+
+                    <Label for="email" class="col-sm-4 control-label"> <%= __('E') %> </label>
+                              
+                    <div class="col-sm-8">
+                                    <P class="form-control-static"> <%= user.email %> </p>
+                    </div>
+                </div>
+                        
+                <div class="row" style="align-content: center;text-align: center">
+                              <Label for="name" class="col-sm-4 control-label"> <%= __('name') %> </label>
+                              
+                    <div class="col-sm-8">
+                                    <Input type="text" class="form-control" name="name" id="name"
+                                           placeholder="<%= __('name') %>" value="<%= user.name %>">
+                    </div>
+                </div>
+                        
+                <div class="row" style="align-content: center;text-align: center">
+                              <Label for="phone" class="col-sm-4 control-label"> <%= __('Telephone') %> </label>
+                              
+                    <Div class="col-sm-8">
+                                    <Input type="text" class="form-control" name="phone" id="phone"
+                                           placeholder="<%= __('Telephone') %>" value="<%= user.phone %>">
+                    </Div>
+                </div>
+                        
+                <div class="row" style="align-content: center;text-align: center">
+                              <Label for="address" class="col-sm-4 control-label"> <%= __('address') %> </label>
+                              
+                    <Div class="col-sm-8">
+                                    <input type="text" class="form-control" name="address" id="address"
+                                           placeholder="<%= __('juso') %>" value="<%= user.address %>">
+                    </Div>
+                </div>
+                        
+                <div class="row" style="align-content: center;text-align: center">
+                              <Label for="postcode" class="col-sm-4 control-label"> <%= __('Zip') %> </label>
+                              
+                    <div class="col-sm-8">
+                                    <Input type="text" class="form-control" name="postcode" id="postcode"
+                                           placeholder="<%= __('Zip') %>" value="<%= user.postcode %>">
+                    </div>
+                </div>
+                <hr/>
+                <div class="row" style="align-content: center;text-align: center">
+ 
+                    <button type="submit" class="btn btn-primary pull-right"> <%= __('Save') %> </button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </div>
+    <hr/>
+
+
+    <%- include order-history.ejs %>
+
+
+</div>
+
+<%- include ../../commun/library.ejs %>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[button-action="status"]').on('click', function () {
+            var product_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'PUT',
+                url: '/product/status/' + product_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/admin/product';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+
+        // POST DELETE
+        $('[button-action="delete"]').on('click', function () {
+            if (!confirm('Do you really want to delete this?')) {
+                return;
+            }
+
+            var product_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/order/' + product_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/admin/order';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+    });
+</script>

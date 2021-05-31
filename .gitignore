@@ -1,0 +1,6 @@
+assets/images/product
+.tmp/public/uploads
+.tmp/public/fonts/
+.tmp
+data/
+node_modules/

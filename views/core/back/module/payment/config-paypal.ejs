@@ -1,0 +1,99 @@
+<div class="">
+    <h4 style="color:forestgreen"><a href="/admin"></a>Module Configuration For Payment</h4>
+    <form role="form" action="/admin/module/edit/validation/<%= nameModule %>" method="POST">
+        <div class="row">
+            <div class="col-sm-12">
+                <label> <%= __('name') %> </label>
+                 <input disabled type="text" class="form-control" id="name" name="name" placeholder=""
+                        value="<%= nameModule %>">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <label> <%= __('Category') %> </label>
+                 <input disabled type="text" class="form-control" id="name" name="name" placeholder="" value="Payment">
+            </div>
+        </div>
+
+        <br>
+
+        <h5 style="color:forestgreen"> <%= __('Configuration') %> </h5>
+        <div class="row">
+            <div class="col-sm-12">
+                <label style="color: red;"> STATUS </label>
+                <select name="currency" class="form-control">            
+                    <Option value="actived"> <%= __('Active') %></option>
+                    <Option value="desactivated"> <%= __('Not Active') %></option>
+
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <label> Mode (sandbox or live ) </label>
+                <Select name="mode" class="form-control">            
+                    <Option value="sandbox" <% if (typeof configuration !== 'undefined' &&  configuration.mode == 'sandbox' ) { %>
+                    <%= 'selected' %><% } %>> <%= __('Sandbox') %></option>
+
+                    <Option value="live"  <% if (typeof configuration !== 'undefined' &&  configuration.mode == 'live' ) { %>
+                            <%= 'selected' %><% } %>> <%= __('Live') %></option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+
+                <label> Client Id </label>
+                <input type="text" class="form-control" id="client_id" name="client_id" placeholder=""
+
+                       value="<% if (typeof configuration !== 'undefined' && typeof configuration.client_id !== 'undefined' ) { %>
+<%= configuration.client_id %><% } %>">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <label> Client Secret </label>
+                <input type="text" class="form-control" id="client_secret" name="client_secret" placeholder=""
+
+                       value="<% if (typeof configuration !== 'undefined' && typeof configuration.client_secret !== 'undefined' ) { %>
+<%= configuration.client_secret %><% } %>">
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <label> Currency </label>
+                <select name="currency" class="form-control">            
+                    <Option value="eur"> <%= __('EUR') %></option>
+                    <Option value="usd"> <%= __('USD') %></option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center;align-content: center">
+
+                <% if (typeof edit == 'object' && edit) { %>
+                 
+                <Button type="submit" class="btn btn-primary btn-lg pull-center"> <%= __('modify') %></button>
+                <% } else { %>
+                <Button type="submit" class="btn btn-primary btn-lg pull-center"> <%= __('Save') %></button>
+                <% } %>
+            </div>
+        </div>
+    </form>
+</div>
+

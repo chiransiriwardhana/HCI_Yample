@@ -1,0 +1,67 @@
+<!-- Page Content -->
+
+<div id="page-content-wrapper">
+
+
+    <div class="container-fluid">
+
+        <% if (typeof templateToInclude == 'string') { %>
+
+        <% if (templateToInclude == 'admin' || templateToInclude == 'product' || templateToInclude == 'productCreationOk' || templateToInclude == 'productCreationKo'
+
+                || templateToInclude == 'categoryCreationOk' || templateToInclude == 'categoryCreationKo' || templateToInclude == 'moduleInstallNew'
+        ) { %>
+
+        <% if (typeof pathToInclude !== 'undefined' ) { %>
+
+        <%- include(pathToInclude) %>
+
+        <% } %>
+
+        <% } %>
+
+        <% if (templateToInclude == 'order_list' || templateToInclude == 'product_list' || templateToInclude == 'product_delete_ok' || templateToInclude == 'product_edit' ||
+
+                templateToInclude == 'module_manage' || templateToInclude == 'product_delete' || templateToInclude == 'product_preview' || templateToInclude == 'product_edit_ok'
+
+                || templateToInclude == 'category_delete_ok' || templateToInclude == 'categoryList' || templateToInclude == 'category_create' || templateToInclude == 'category_edit'
+
+                || templateToInclude == 'category_delete' || templateToInclude == 'edit_module' || templateToInclude == 'list_module' || templateToInclude == 'install_installation_done'
+
+                || templateToInclude == 'installModuleDone' || templateToInclude == 'admin_profile' || templateToInclude == 'customer_list' || templateToInclude == 'customer_item'
+
+                || templateToInclude == 'customer_edit' || templateToInclude == 'yes') { %>
+
+        <%- include ./navbar.light.ejs %>
+
+        <% if ( typeof  pathToInclude !== 'undefined' ){ %>
+        <%- include(pathToInclude) %>
+        <% } %>
+
+        <% } %>
+
+        <% if (templateToInclude == 'view_module_payment_paypal') { %>
+
+        <%- include ./navbar.light.ejs %>
+
+        <% } %>
+
+        <% } else { %>
+
+
+        <% if (typeof pathToInclude !== 'undefined' ) { %>
+
+        <%- include(pathToInclude) %>
+
+        <% } %>
+
+
+
+        <%}%>
+
+
+    </div>
+</div>
+
+
+<!-- /#page-content-wrapper -->

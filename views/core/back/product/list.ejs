@@ -1,0 +1,196 @@
+<div class="">
+    <h3 class="submenu"><a href="/admin"></a>PRODUCT LIST</h3>
+    <hr/>
+
+    <% if (typeof loop == 'edit' && edit) { %>
+    <form role="form" action="/product/{{ edit.id }}" method="POST">
+        <% }else { %>
+        <form role="form" action="/product" method="POST">
+            <% } %>
+
+            <%#- include admin_product/include.admin.product.ejs %>
+        </form>
+        <hr/>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+
+
+                        <Th> <%= __('one generation') %></th>
+                                    
+                        <Th> <%= __('name') %></th>
+                                    
+                        <Th style="width: 200px;"> <%= __('Photo') %></th>
+                                    
+                        <Th> <%= __('Price') %></th>
+                                    
+                        <Th> <%= __('Inventory') %></th>
+                                    
+                        <Th> <%= __('product') %></th>
+                                    
+                        <Th> <%= __('tags') %></th>
+                                    
+                        <Th> <%= __('state') %></th>
+
+
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% products.forEach(function(product){ %>
+
+
+                    <%if ( product.name ) { %>
+
+                    <tr data-id="<%= product.id %>">
+                        <td>
+                            <%#= loop.index %>
+                        </td>
+                        <td><%= product.createdAt %></td>
+                        <td><%= product.name %></td>
+                        <td class="ellipsis">
+
+                            <% if (typeof photos == 'object') { %>
+
+                            <% photos.forEach(function(photo) { %>
+                            <a href="<%= product.photos %>"></a>&nbsp;
+                            <% }); %>
+
+                            <% } %>
+
+                        </td>
+                        <td><%= product.price | 'currency' %></td>
+                        <td>
+                            <% if (product.stock > 0) { %>
+                            <%= product.stock %>
+
+                            <% } %>
+
+                            <% if (product.stock == 0)  { %>
+
+                            <%= __('No stock') %>
+
+                                    
+                            <% } %>
+                              
+                        </td>
+                        <td><%= product.related %></td>
+
+
+                        <td>
+
+                            <% if (typeof product.tags == 'object') { %>
+                            <% product.tags.forEach(function(tag){ %>
+                            <%= tag %>
+
+                            <% }); %>
+
+                            <% } %>
+                        </td>
+                        <% if (product.isSelling) { %>
+                        <td>
+                            <button class="btn btn-xs btn-success" button-action="status"> <%= __('sale') %></button>
+                        </td>
+                        <% }  else { %>
+                                 
+                        <td>
+
+
+                            <input id="toggle-product-<%= product.id %>" type="checkbox" checked data-toggle="toggle">
+
+                        </td>
+                        <% } %>
+
+                        </td>
+
+                        <td>
+                            <a href="/admin/product/preview/<%= product.idProduct %>" class="btn btn-xs btn-default" button-action="edit">PREVIEW</a>
+                        </td>
+                        <td>
+                            <a href="/admin/product/edit/<%= product.idProduct %>" class="btn btn-xs btn-primary" button-action="edit">EDIT</a>
+                        </td>
+                        <td>
+                            <a href="/admin/product/delete/<%= product.idProduct %>" class="btn btn-xs btn-danger" button-action="delete">DELETE</a>
+                        </td>
+                    </tr>
+
+                    <%}%>
+                    <% } ); %>
+                    </tbody>
+                </table>
+
+                <div style="text-align: center;">
+                    <ul class="pagination">
+                        <button><a class="btn btn-sm" href="#/admin/product">&laquo;</a></button>
+                            <button><a class="btn btn-sm" href="#/admin/product">&raquo;</a></button>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[button-action="status"]').on('click', function () {
+            var product_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'PUT',
+                url: '/product/status/' + product_id,
+                success: function (data, status) {
+                    alert('Status changed succesfully.');
+                    window.location = '/admin/product';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+
+        // POST DELETE
+        $('[button-action="delete"]').on('click', function () {
+            if (!confirm('Do you really want to delete this?')) {
+                return;
+            }
+
+            var product_id = $(this).parent().parent().data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/product/' + product_id,
+                success: function (data, status) {
+                    alert('Deleted succesfully.');
+                    window.location = '/admin/product';
+                    return;
+                },
+                error: function (error) {
+                    console.log(error);
+                    return;
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- STYLESHEETS -->
+<style>
+    .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<!-- SCRIPTS -->
+
+
