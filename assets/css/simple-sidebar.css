@@ -188,10 +188,11 @@
   }
 
 /* .container-fluid {
+    
     border-color: #eff2f7;
     background: #fff;
     color: #767676;
-    border-radius: 0%; 
+    border-radius: 0px; 
 } */
 
 .nav-sub {
