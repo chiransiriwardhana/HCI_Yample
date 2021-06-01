@@ -3,7 +3,7 @@
 //var nodemailer = require('nodemailer');
 
 var bcrypt = require('bcryptjs');
-
+require('dotenv').config()
 // create reusable transporter object using SMTP transport
 //var transporter = nodemailer.createTransport({
 //  service: 'Gmail',
@@ -17,7 +17,7 @@ var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
 //var urlConnection = "mongodb://localhost:27017/ymple-commerce"; // get the connexion.js database name
-var urlConnection = "mongodb://" + host + ":" + port + '/' + database;
+var urlConnection = process.env.MONGODB_URI;
 
 getValueFromArray = function (data, element, type) {
 

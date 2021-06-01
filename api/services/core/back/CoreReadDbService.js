@@ -1,7 +1,11 @@
 var host = sails.config.connections.mongodbServer.host;
 var port = sails.config.connections.mongodbServer.port;
 var database = sails.config.connections.mongodbServer.database;
-var url = "mongodb://" + host + ":" + port + '/' + database;
+
+require('dotenv').config()
+
+var url = process.env.MONGODB_URI ;
+
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
 
@@ -399,7 +403,7 @@ module.exports = {
         return promise;
     },
 
-    getProductListFromOneCategory: function (idCategory, query) { // return the data and item information about one order
+    getProductListFromOneCategory: function (idCategory) { // return the data and item information about one order
 
         var promise = new Promise(
             function (resolve, reject) {
@@ -415,15 +419,8 @@ module.exports = {
                     var col = db.collection(collection);
 
                     //var idProduct = input[0].id;
-                    // alert(query)
-                    console.log(query)
-                    if(query==""){
-                        var findQuery = {idCategory: idCategory};
-                    } else {
-                        var regex = new RegExp(query, "i");
-                        var findQuery = {name: regex , idCategory: idCategory};
-                    }
 
+                    var findQuery = {"idCategory": idCategory};
 
                     col.find(
                         findQuery
@@ -441,7 +438,7 @@ module.exports = {
         return promise;
     },
 
-    getProductList: function (query, order) { // return the data and item information about one order
+    getProductList: function (query) { // return the data and item information about one order
 
         var promise = new Promise(
             function (resolve, reject) {
@@ -454,7 +451,17 @@ module.exports = {
 
                 MongoClient.connect(url, function (err, db) {
 
-                    var col = db.collection(collection);
+                    if (err) {
+                        console.log(err)
+                    }
+                    if (db) {
+
+                    
+                    var col = db.collection("product");
+
+                    if (!col) {
+                        console.log("collection unavilabel")
+                    }
 
                     if(query==""){
                         var findQuery = {};
@@ -462,21 +469,10 @@ module.exports = {
                         var regex = new RegExp(query, "i");
                         var findQuery = {name: regex};
                     }
-                    if(order==""){
-                        var orderQuery = {};
-                    } else {
-                        if(order=='low'){
-                            var orderQuery = {price: 1};
-                        } else if(order =="high") {
-                            var orderQuery = {price: -1};
-                        } else{
-                            var orderQuery = {createdAt: -1};
-                        }
-                    }
 
                     col.find(
                         findQuery
-                    ).sort(orderQuery).toArray(function (err, data) {
+                    ).toArray(function (err, data) {
                         //db.close();
                         console.log(err);
 
@@ -484,6 +480,7 @@ module.exports = {
 
                         resolve(data);    //docs[0].name.toString()); // returns to the function that calls the callback
                     })
+                }
                 })
             })
 
